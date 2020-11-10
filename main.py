@@ -10,48 +10,48 @@ def open_file():
 
 
 
-def walds_maximin_model(matrix):
-    minOfRows = []
+def maximum_model(matrix):
+    minRow = []
     for row in matrix:
-        minOfRows.append(min(row))
+        minRow.append(min(row))
 
-    maxValue = max(minOfRows)
-    print("Найменші елементи для кожного рядка:", minOfRows)
+    maxValue = max(minRow)
+    print("Найменші елементи для кожного рядка:", minRow)
     print("Найбільший з найменших елементів:", maxValue)
-    return minOfRows.index(maxValue)
+    return minRow.index(maxValue)
 
 
-def laplace_criterion(matrix):
-    sumOfRows = []
+def laplace(matrix):
+    sumRows = []
     for row in matrix:
-        sumOfRows.append(sum(row) / len(row))
+        sumRows.append(sum(row) / len(row))
 
-    maxValue = max(sumOfRows)
-    print("Сумовування розділених значень для кожного рядка:", sumOfRows)
+    maxValue = max(sumRows)
+    print("Сумовування розділених значень для кожного рядка:", sumRows)
     print("Найбільший елемент:", maxValue)
-    return sumOfRows.index(maxValue)
+    return sumRows.index(maxValue)
 
 
-def hurwitz_criterion(matrix, coefficient):
-    minOfRows = []
-    maxOfRows = []
+def hurwitz(matrix, coefficient):
+    minRows = []
+    maxRows = []
 
     for row in matrix:
-        minOfRows.append(min(row))
-        maxOfRows.append(max(row))
+        minRows.append(min(row))
+        maxRows.append(max(row))
 
     result = []
-    for i in range(len(minOfRows)):
-        result.append(coefficient * minOfRows[i] + (1 - coefficient) * maxOfRows[i])
+    for i in range(len(minRows)):
+        result.append(coefficient * minRows[i] + (1 - coefficient) * maxRows[i])
 
     print("Коефіцієнт:", coefficient)
-    print("Найменші елементи для кожного рядка:", minOfRows)
-    print("Найбільші елементи для кожного рядка:", maxOfRows)
+    print("Найменші елементи для кожного рядка:", minRows)
+    print("Найбільші елементи для кожного рядка:", maxRows)
     print("Пораховані значення:", result)
     return result.index(max(result))
 
 
-def bayes_laplace_criterion(matrix, coefficients):
+def bayes_laplace(matrix, coefficients):
     result = [0 for x in range(len(matrix))]
     for i in range(len(matrix)):
         for j in range(len(matrix[i])):
@@ -75,17 +75,17 @@ for line in file:
 print("Матриця:", lines)
 
 print("\nМаксимальний критерій Вальда:")
-indexByWald = walds_maximin_model(lines)
+indexByWald = maximum_model(lines)
 print("Найкраще рішення:", lines[indexByWald])
 
 print("\nКритерій Лапласа:")
-indexByLaplace = laplace_criterion(lines)
+indexByLaplace = laplace(lines)
 print("Найкраще рішення:", lines[indexByLaplace])
 
 print("\nКритерій Гурвіца:")
-indexByHurwitz = hurwitz_criterion(lines, 0.2)
+indexByHurwitz = hurwitz(lines, 0.2)
 print("Найкраще рішення:", lines[indexByHurwitz])
 
 print("\nКритерій Байеса-Лапласа:")
-indexByBayesLaplace = bayes_laplace_criterion(lines, [0.25, 0.30, 0.45])
+indexByBayesLaplace = bayes_laplace(lines, [0.25, 0.30, 0.45])
 print("Найкраще рішення:", lines[indexByBayesLaplace])
